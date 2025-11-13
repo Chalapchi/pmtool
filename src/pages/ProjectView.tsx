@@ -45,16 +45,16 @@ export const ProjectView = () => {
       <div className="flex flex-col h-full">
         {/* Project Header */}
         <div className="bg-dark-800 border-b border-dark-600">
-          <div className="px-6 py-4">
+          <div className="px-4 sm:px-6 py-3 sm:py-4">
             {/* Project Name and Star */}
-            <div className="flex items-center gap-3 mb-4">
-              <button className="p-1 hover:bg-dark-700 rounded transition-colors">
+            <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+              <button className="p-1 hover:bg-dark-700 rounded transition-colors hidden sm:block">
                 <ChevronDown className="w-5 h-5 text-dark-300" />
               </button>
-              <h1 className="text-xl font-semibold text-dark-100">{project.name}</h1>
+              <h1 className="text-lg sm:text-xl font-semibold text-dark-100 truncate flex-1">{project.name}</h1>
               <button
                 onClick={() => toggleFavorite(project.id)}
-                className="p-1 hover:bg-dark-700 rounded transition-colors"
+                className="p-1 hover:bg-dark-700 rounded transition-colors flex-shrink-0"
               >
                 <Star
                   className={clsx(
@@ -65,14 +65,14 @@ export const ProjectView = () => {
               </button>
             </div>
 
-            {/* View Tabs */}
-            <div className="flex gap-2">
+            {/* View Tabs - Scrollable on mobile */}
+            <div className="flex gap-1 sm:gap-2 overflow-x-auto scrollbar-hide -mx-4 px-4 sm:mx-0 sm:px-0">
               {views.map((view) => (
                 <button
                   key={view.id}
                   onClick={() => setCurrentView(view.id)}
                   className={clsx(
-                    'px-4 py-2 rounded-t text-sm font-medium transition-colors',
+                    'px-3 sm:px-4 py-2 rounded-t text-sm font-medium transition-colors whitespace-nowrap flex-shrink-0',
                     currentView === view.id
                       ? 'bg-dark-900 text-dark-100'
                       : 'text-dark-400 hover:text-dark-200 hover:bg-dark-700'

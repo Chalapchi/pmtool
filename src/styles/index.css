@@ -34,6 +34,16 @@
     @apply bg-dark-500;
   }
 
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
   /* Rich text editor styling */
   .tiptap {
     @apply outline-none min-h-[100px] p-3;

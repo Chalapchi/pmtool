@@ -9,11 +9,12 @@ interface LayoutProps {
 }
 
 export const Layout = ({ children, selectedProjectId }: LayoutProps) => {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false); // Default closed on mobile
   const navigate = useNavigate();
 
   const handleProjectSelect = (projectId: string) => {
     navigate(`/project/${projectId}`);
+    setSidebarOpen(false); // Close sidebar after selection on mobile
   };
 
   return (
