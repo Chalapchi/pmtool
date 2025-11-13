@@ -3,6 +3,7 @@ import { useAuthStore } from './store/authStore';
 import { Login } from './pages/Login';
 import { Dashboard } from './pages/Dashboard';
 import { ProjectView } from './pages/ProjectView';
+import { Timesheet } from './pages/Timesheet';
 
 function App() {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
@@ -21,6 +22,10 @@ function App() {
         <Route
           path="/project/:projectId"
           element={isAuthenticated ? <ProjectView /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/timesheet"
+          element={isAuthenticated ? <Timesheet /> : <Navigate to="/login" />}
         />
         <Route path="/" element={<Navigate to="/dashboard" />} />
       </Routes>
