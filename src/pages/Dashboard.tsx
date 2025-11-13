@@ -12,13 +12,13 @@ export const Dashboard = () => {
 
   return (
     <Layout>
-      <div className="p-6 space-y-8">
+      <div className="p-4 sm:p-6 space-y-6 sm:space-y-8">
         {/* Welcome */}
         <div>
-          <h1 className="text-3xl font-semibold text-dark-100 mb-2">
+          <h1 className="text-2xl sm:text-3xl font-semibold text-dark-100 mb-2">
             Welcome to LogicFlow
           </h1>
-          <p className="text-dark-400">
+          <p className="text-sm sm:text-base text-dark-400">
             Manage your projects and tasks efficiently
           </p>
         </div>
@@ -28,9 +28,9 @@ export const Dashboard = () => {
           <div>
             <div className="flex items-center gap-2 mb-4">
               <Star className="w-5 h-5 text-yellow-500" />
-              <h2 className="text-xl font-semibold text-dark-100">Favorite Projects</h2>
+              <h2 className="text-lg sm:text-xl font-semibold text-dark-100">Favorite Projects</h2>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
               {favoriteProjects.map((project) => (
                 <button
                   key={project.id}
@@ -53,8 +53,8 @@ export const Dashboard = () => {
 
         {/* Recent Projects */}
         <div>
-          <h2 className="text-xl font-semibold text-dark-100 mb-4">Recent Projects</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <h2 className="text-lg sm:text-xl font-semibold text-dark-100 mb-4">Recent Projects</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
             {recentProjects.map((project) => (
               <button
                 key={project.id}

@@ -60,9 +60,9 @@ export const TaskList = ({ projectId, onTaskClick }: TaskListProps) => {
   };
 
   return (
-    <div className="p-6">
-      {/* Column Headers */}
-      <div className="grid grid-cols-[2fr,1fr,1fr,1fr,1fr] gap-4 mb-4 px-4 text-sm font-medium text-dark-400">
+    <div className="p-4 sm:p-6">
+      {/* Column Headers - Hidden on mobile */}
+      <div className="hidden md:grid grid-cols-[2fr,1fr,1fr,1fr,1fr] gap-4 mb-4 px-4 text-sm font-medium text-dark-400">
         <div>Name</div>
         <div>Priority</div>
         <div>Assignee</div>
@@ -81,7 +81,7 @@ export const TaskList = ({ projectId, onTaskClick }: TaskListProps) => {
               <button
                 onClick={() => toggleGroup(status)}
                 className={clsx(
-                  'w-full flex items-center justify-between px-4 py-2 bg-dark-800 hover:bg-dark-700 transition-colors',
+                  'w-full flex items-center justify-between px-3 sm:px-4 py-2 bg-dark-800 hover:bg-dark-700 transition-colors',
                   color
                 )}
               >
@@ -91,7 +91,7 @@ export const TaskList = ({ projectId, onTaskClick }: TaskListProps) => {
                   ) : (
                     <ChevronRight className="w-4 h-4" />
                   )}
-                  <span className="font-medium">{label}</span>
+                  <span className="font-medium text-sm sm:text-base">{label}</span>
                   <span className="text-dark-400">+</span>
                 </div>
                 <span className="text-sm text-dark-400">{tasks.length}</span>
@@ -104,43 +104,70 @@ export const TaskList = ({ projectId, onTaskClick }: TaskListProps) => {
                     <button
                       key={task.id}
                       onClick={() => onTaskClick(task.id)}
-                      className="w-full grid grid-cols-[2fr,1fr,1fr,1fr,1fr] gap-4 px-4 py-3 hover:bg-dark-700 transition-colors text-left"
+                      className="w-full hover:bg-dark-700 transition-colors text-left"
                     >
-                      {/* Name */}
-                      <div className="flex items-center gap-2">
-                        <Flag
-                          className={clsx('w-4 h-4', getPriorityColor(task.priority))}
-                        />
-                        <span className="text-dark-100 truncate">{task.title}</span>
+                      {/* Desktop Grid View */}
+                      <div className="hidden md:grid grid-cols-[2fr,1fr,1fr,1fr,1fr] gap-4 px-4 py-3">
+                        {/* Name */}
+                        <div className="flex items-center gap-2">
+                          <Flag
+                            className={clsx('w-4 h-4', getPriorityColor(task.priority))}
+                          />
+                          <span className="text-dark-100 truncate">{task.title}</span>
+                        </div>
+
+                        {/* Priority */}
+                        <div className="flex items-center">
+                          <Flag
+                            className={clsx('w-4 h-4', getPriorityColor(task.priority))}
+                          />
+                        </div>
+
+                        {/* Assignee */}
+                        <div className="text-dark-300 text-sm truncate">
+                          {getAssigneeInitials(task.assignees)}
+                        </div>
+
+                        {/* Time Spent */}
+                        <div className="flex items-center gap-1 text-dark-300 text-sm">
+                          {task.timeSpent > 0 && (
+                            <>
+                              <Clock className="w-3 h-3" />
+                              <span>{formatTimeSpent(task.timeSpent)}</span>
+                            </>
+                          )}
+                        </div>
+
+                        {/* Due Date */}
+                        <div className="text-dark-300 text-sm">
+                          {task.deadline
+                            ? new Date(task.deadline).toLocaleDateString('en-GB')
+                            : ''}
+                        </div>
                       </div>
 
-                      {/* Priority */}
-                      <div className="flex items-center">
-                        <Flag
-                          className={clsx('w-4 h-4', getPriorityColor(task.priority))}
-                        />
-                      </div>
-
-                      {/* Assignee */}
-                      <div className="text-dark-300 text-sm truncate">
-                        {getAssigneeInitials(task.assignees)}
-                      </div>
-
-                      {/* Time Spent */}
-                      <div className="flex items-center gap-1 text-dark-300 text-sm">
-                        {task.timeSpent > 0 && (
-                          <>
-                            <Clock className="w-3 h-3" />
-                            <span>{formatTimeSpent(task.timeSpent)}</span>
-                          </>
-                        )}
-                      </div>
-
-                      {/* Due Date */}
-                      <div className="text-dark-300 text-sm">
-                        {task.deadline
-                          ? new Date(task.deadline).toLocaleDateString('en-GB')
-                          : ''}
+                      {/* Mobile Card View */}
+                      <div className="md:hidden px-3 py-3 space-y-2">
+                        <div className="flex items-start gap-2">
+                          <Flag
+                            className={clsx('w-4 h-4 mt-0.5 flex-shrink-0', getPriorityColor(task.priority))}
+                          />
+                          <span className="text-dark-100 font-medium flex-1">{task.title}</span>
+                        </div>
+                        <div className="flex items-center gap-3 text-xs text-dark-400 ml-6">
+                          {task.assignees.length > 0 && (
+                            <span>{getAssigneeInitials(task.assignees)}</span>
+                          )}
+                          {task.timeSpent > 0 && (
+                            <span className="flex items-center gap-1">
+                              <Clock className="w-3 h-3" />
+                              {formatTimeSpent(task.timeSpent)}
+                            </span>
+                          )}
+                          {task.deadline && (
+                            <span>{new Date(task.deadline).toLocaleDateString('en-GB')}</span>
+                          )}
+                        </div>
                       </div>
                     </button>
                   ))}
@@ -149,7 +176,7 @@ export const TaskList = ({ projectId, onTaskClick }: TaskListProps) => {
 
               {/* Add Task Button */}
               {expandedGroups[status] && (
-                <button className="w-full flex items-center gap-2 px-4 py-2 text-sm text-dark-400 hover:bg-dark-700 transition-colors">
+                <button className="w-full flex items-center gap-2 px-3 sm:px-4 py-2 text-sm text-dark-400 hover:bg-dark-700 transition-colors">
                   <Plus className="w-4 h-4" />
                   <span>Add task...</span>
                 </button>
