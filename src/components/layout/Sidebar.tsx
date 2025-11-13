@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useProjectStore } from '@/store/projectStore';
-import { ChevronDown, ChevronRight, Star, Folder } from 'lucide-react';
+import { ChevronDown, ChevronRight, Star, Folder, Clock } from 'lucide-react';
 import clsx from 'clsx';
 
 interface SidebarProps {
@@ -9,14 +10,17 @@ interface SidebarProps {
 }
 
 export const Sidebar = ({ onProjectSelect, selectedProjectId }: SidebarProps) => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [favoritesOpen, setFavoritesOpen] = useState(true);
   const [projectsOpen, setProjectsOpen] = useState(true);
 
   const projects = useProjectStore((state) => state.projects);
-  const toggleFavorite = useProjectStore((state) => state.toggleFavorite);
 
   const favoriteProjects = projects.filter((p) => p.isFavorite);
   const regularProjects = projects.filter((p) => !p.isFavorite);
+
+  const isTimesheetActive = location.pathname === '/timesheet';
 
   return (
     <aside className="w-56 bg-dark-800 border-r border-dark-600 flex flex-col h-full">
@@ -34,6 +38,22 @@ export const Sidebar = ({ onProjectSelect, selectedProjectId }: SidebarProps) =>
 
       {/* Navigation */}
       <nav className="flex-1 overflow-y-auto custom-scrollbar p-2">
+        {/* Main Navigation */}
+        <div className="mb-4">
+          <button
+            onClick={() => navigate('/timesheet')}
+            className={clsx(
+              'flex items-center gap-2 w-full px-2 py-2 text-sm rounded transition-colors',
+              isTimesheetActive
+                ? 'bg-primary-500/20 text-primary-400'
+                : 'text-dark-300 hover:bg-dark-700 hover:text-dark-100'
+            )}
+          >
+            <Clock className="w-4 h-4" />
+            <span>Timesheet</span>
+          </button>
+        </div>
+
         {/* Favorites */}
         <div className="mb-4">
           <button
