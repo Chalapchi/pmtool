@@ -1,60 +1,73 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@theme inline {
-  /* Dark color palette */
-  --color-dark-900: #0d0d0d;
-  --color-dark-800: #1a1a1a;
-  --color-dark-700: #2a2a2a;
-  --color-dark-600: #333333;
-  --color-dark-500: #404040;
-  --color-dark-400: #999999;
-  --color-dark-300: #b3b3b3;
-  --color-dark-200: #cccccc;
-  --color-dark-100: #e5e5e5;
+@layer base {
+  :root {
+    --background: 13 13 13; /* #0d0d0d */
+    --foreground: 229 229 229; /* #e5e5e5 */
+    --card: 26 26 26; /* #1a1a1a */
+    --card-foreground: 229 229 229;
+    --popover: 26 26 26;
+    --popover-foreground: 229 229 229;
+    --primary: 255 107 53; /* #FF6B35 */
+    --primary-foreground: 255 255 255;
+    --secondary: 42 42 42; /* #2a2a2a */
+    --secondary-foreground: 229 229 229;
+    --muted: 42 42 42;
+    --muted-foreground: 153 153 153; /* #999999 */
+    --accent: 51 51 51; /* #333333 */
+    --accent-foreground: 229 229 229;
+    --destructive: 239 68 68;
+    --destructive-foreground: 255 255 255;
+    --border: 64 64 64; /* #404040 */
+    --input: 64 64 64;
+    --ring: 255 107 53;
+    --radius: 0.5rem;
 
-  /* Primary orange color */
-  --color-primary-400: #ff8c42;
-  --color-primary-500: #FF6B35;
-  --color-primary-600: #e55e2e;
-
-  /* Font families */
-  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    /* Custom dark theme colors */
+    --dark-900: 13 13 13;
+    --dark-800: 26 26 26;
+    --dark-700: 42 42 42;
+    --dark-600: 51 51 51;
+    --dark-500: 64 64 64;
+    --dark-400: 153 153 153;
+    --dark-300: 179 179 179;
+    --dark-200: 204 204 204;
+    --dark-100: 229 229 229;
+  }
 }
 
-* {
-  border-color: var(--color-dark-500);
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 }
 
-body {
-  background-color: var(--color-dark-900);
-  color: var(--color-dark-100);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-#__next {
-  width: 100%;
-  height: 100vh;
-}
-
-/* Scrollbar styling */
+/* Custom scrollbar */
 .custom-scrollbar::-webkit-scrollbar {
   width: 0.5rem;
   height: 0.5rem;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-  background-color: var(--color-dark-800);
+  background-color: rgb(var(--dark-800));
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: var(--color-dark-600);
+  background-color: rgb(var(--dark-600));
   border-radius: 9999px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background-color: var(--color-dark-500);
+  background-color: rgb(var(--dark-500));
 }
 
 /* Hide scrollbar but keep functionality */
