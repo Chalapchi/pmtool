@@ -3,7 +3,14 @@
 import { useEffect } from 'react';
 import { useTimerStore } from '@/stores/timerStore';
 import { useTaskStore } from '@/stores/taskStore';
-import { Select, Button } from '@/components/ui';
+import {
+  Button,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui';
 import { Menu } from 'lucide-react';
 
 interface HeaderProps {
@@ -57,14 +64,6 @@ export const Header = ({ onToggleSidebar }: HeaderProps) => {
     }
   };
 
-  const taskOptions = [
-    { value: '', label: 'Select task...' },
-    ...tasks.map((task) => ({
-      value: task.id,
-      label: task.title,
-    })),
-  ];
-
   return (
     <header className="h-14 bg-dark-800 border-b border-dark-600 flex items-center justify-between px-4">
       {/* Left side - Menu toggle for mobile */}
@@ -79,12 +78,22 @@ export const Header = ({ onToggleSidebar }: HeaderProps) => {
       <div className="flex items-center gap-3 ml-auto">
         <div className="min-w-[200px]">
           <Select
-            options={taskOptions}
             value={selectedTaskId || ''}
-            onChange={(e) => selectTask(e.target.value || null)}
+            onValueChange={(value) => selectTask(value || null)}
             disabled={isRunning}
-            className="text-sm"
-          />
+          >
+            <SelectTrigger className="text-sm">
+              <SelectValue placeholder="Select task..." />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="">Select task...</SelectItem>
+              {tasks.map((task) => (
+                <SelectItem key={task.id} value={task.id}>
+                  {task.title}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
 
         <div className="font-mono text-lg text-dark-100 min-w-[100px] text-center">

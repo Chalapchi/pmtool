@@ -323,7 +323,7 @@ export default function TimesheetPage() {
 
               {/* Add Task Button */}
               <div className="p-4 border-t border-dark-700">
-                <Button variant="primary" size="sm">
+                <Button variant="default" size="sm">
                   <Plus className="w-4 h-4 mr-2" />
                   Add task
                 </Button>
@@ -403,7 +403,7 @@ export default function TimesheetPage() {
 
               {/* Add Task Button */}
               <div className="p-4 border-t border-dark-700">
-                <Button variant="primary" size="sm">
+                <Button variant="default" size="sm">
                   <Plus className="w-4 h-4 mr-2" />
                   Add task
                 </Button>
