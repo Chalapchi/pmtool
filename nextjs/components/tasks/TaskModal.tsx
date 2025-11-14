@@ -2,7 +2,22 @@
 
 import { useState } from 'react';
 import { useTaskStore } from '@/stores/taskStore';
-import { Modal, Input, Select } from '@/components/ui';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from '@/components/ui/dialog';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 import { TaskStatus, TaskPriority } from '@/types';
 import { Flag, Calendar, Clock, Users, Plus } from 'lucide-react';
 
@@ -38,18 +53,6 @@ export const TaskModal = ({ taskId, isOpen, onClose }: TaskModalProps) => {
     return mins > 0 ? `${hours}h ${mins}min` : `${hours}h`;
   };
 
-  const statusOptions = [
-    { value: 'todo', label: 'To do' },
-    { value: 'in_progress', label: 'In progress' },
-    { value: 'complete', label: 'Complete' },
-    { value: 'done', label: 'Done' },
-  ];
-
-  const priorityOptions = [
-    { value: 'low', label: 'Low' },
-    { value: 'medium', label: 'Medium' },
-    { value: 'high', label: 'High' },
-  ];
 
   const handleSave = () => {
     if (taskId) {
@@ -64,8 +67,12 @@ export const TaskModal = ({ taskId, isOpen, onClose }: TaskModalProps) => {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="xl">
-      <div className="p-6">
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="max-w-2xl bg-dark-800 border-dark-600">
+        <DialogHeader>
+          <DialogTitle>Edit Task</DialogTitle>
+        </DialogHeader>
+        <div className="p-6">
         {/* Title */}
         <input
           type="text"
@@ -152,22 +159,33 @@ export const TaskModal = ({ taskId, isOpen, onClose }: TaskModalProps) => {
               <label className="block text-sm font-medium text-dark-200 mb-1.5">
                 Status
               </label>
-              <Select
-                options={statusOptions}
-                value={status}
-                onChange={(e) => setStatus(e.target.value as TaskStatus)}
-              />
+              <Select value={status} onValueChange={(value) => setStatus(value as TaskStatus)}>
+                <SelectTrigger className="bg-dark-700 border-dark-600">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent className="bg-dark-800 border-dark-600">
+                  <SelectItem value="todo">To do</SelectItem>
+                  <SelectItem value="in_progress">In progress</SelectItem>
+                  <SelectItem value="complete">Complete</SelectItem>
+                  <SelectItem value="done">Done</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
             <div>
               <label className="block text-sm font-medium text-dark-200 mb-1.5">
                 Priority
               </label>
-              <Select
-                options={priorityOptions}
-                value={priority}
-                onChange={(e) => setPriority(e.target.value as TaskPriority)}
-              />
+              <Select value={priority} onValueChange={(value) => setPriority(value as TaskPriority)}>
+                <SelectTrigger className="bg-dark-700 border-dark-600">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent className="bg-dark-800 border-dark-600">
+                  <SelectItem value="low">Low</SelectItem>
+                  <SelectItem value="medium">Medium</SelectItem>
+                  <SelectItem value="high">High</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
             <div>
@@ -177,6 +195,7 @@ export const TaskModal = ({ taskId, isOpen, onClose }: TaskModalProps) => {
               </label>
               <Input
                 type="date"
+                className="bg-dark-700 border-dark-600"
                 value={
                   task.startDate
                     ? new Date(task.startDate).toISOString().split('T')[0]
@@ -192,6 +211,7 @@ export const TaskModal = ({ taskId, isOpen, onClose }: TaskModalProps) => {
               </label>
               <Input
                 type="date"
+                className="bg-dark-700 border-dark-600"
                 value={
                   task.dueDate ? new Date(task.dueDate).toISOString().split('T')[0] : ''
                 }
@@ -205,6 +225,7 @@ export const TaskModal = ({ taskId, isOpen, onClose }: TaskModalProps) => {
               </label>
               <Input
                 type="date"
+                className="bg-dark-700 border-dark-600"
                 value={
                   task.deadline ? new Date(task.deadline).toISOString().split('T')[0] : ''
                 }
@@ -212,7 +233,14 @@ export const TaskModal = ({ taskId, isOpen, onClose }: TaskModalProps) => {
             </div>
           </div>
         </div>
-      </div>
-    </Modal>
+        </div>
+        <DialogFooter>
+          <Button variant="outline" onClick={onClose}>
+            Cancel
+          </Button>
+          <Button onClick={handleSave}>Save Changes</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 };

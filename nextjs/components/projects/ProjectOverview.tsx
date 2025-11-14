@@ -7,6 +7,7 @@ interface ProjectOverviewProps {
   projectId: string;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const ProjectOverview = ({ projectId }: ProjectOverviewProps) => {
   const [description, setDescription] = useState('');
   const [pinDescription, setPinDescription] = useState(false);

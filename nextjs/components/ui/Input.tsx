@@ -1,40 +1,21 @@
-import { InputHTMLAttributes, forwardRef } from 'react';
-import { cn } from '@/lib/utils';
+import * as React from "react"
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  label?: string;
-  error?: string;
+import { cn } from "@/lib/utils"
+
+function Input({ className, type, ...props }: React.ComponentProps<"input">) {
+  return (
+    <input
+      type={type}
+      data-slot="input"
+      className={cn(
+        "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+        "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
+        "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+        className
+      )}
+      {...props}
+    />
+  )
 }
 
-export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ label, error, className, ...props }, ref) => {
-    return (
-      <div className="w-full">
-        {label && (
-          <label className="block text-sm font-medium text-dark-200 mb-1.5">
-            {label}
-          </label>
-        )}
-        <input
-          ref={ref}
-          className={cn(
-            'w-full px-3 py-2 rounded',
-            'bg-dark-700 text-dark-100',
-            'border border-dark-500',
-            'focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent',
-            'placeholder:text-dark-400',
-            'transition-all duration-200',
-            error && 'border-red-500 focus:ring-red-500',
-            className
-          )}
-          {...props}
-        />
-        {error && (
-          <p className="mt-1 text-sm text-red-500">{error}</p>
-        )}
-      </div>
-    );
-  }
-);
-
-Input.displayName = 'Input';
+export { Input }

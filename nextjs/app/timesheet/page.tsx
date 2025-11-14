@@ -13,7 +13,8 @@ import {
   isSameDay,
 } from 'date-fns';
 import { ChevronLeft, ChevronRight, Plus, Settings, User } from 'lucide-react';
-import { Button } from '@/components/ui';
+import { Button } from '@/components/ui/button';
+import type { TimeEntry } from '@/types';
 
 export default function TimesheetPage() {
   const currentUser = useAuthStore((state) => state.user);
@@ -58,7 +59,7 @@ export default function TimesheetPage() {
 
   // Group entries by user and task
   const weekEntries = getWeekEntries();
-  const userGroups = new Map<string, { userName: string; tasks: Map<string, any[]> }>();
+  const userGroups = new Map<string, { userName: string; tasks: Map<string, TimeEntry[]> }>();
 
   weekEntries.forEach((entry) => {
     if (!userGroups.has(entry.userId)) {
@@ -95,14 +96,14 @@ export default function TimesheetPage() {
   }
 
   // Calculate total for a day
-  const getDayTotal = (entries: any[], day: Date) => {
+  const getDayTotal = (entries: TimeEntry[], day: Date) => {
     return entries
       .filter((e) => isSameDay(new Date(e.date), day))
       .reduce((sum, e) => sum + e.duration, 0);
   };
 
   // Calculate total for all entries
-  const getTotal = (entries: any[]) => {
+  const getTotal = (entries: TimeEntry[]) => {
     return entries.reduce((sum, e) => sum + e.duration, 0);
   };
 
@@ -323,7 +324,7 @@ export default function TimesheetPage() {
 
               {/* Add Task Button */}
               <div className="p-4 border-t border-dark-700">
-                <Button variant="primary" size="sm">
+                <Button size="sm">
                   <Plus className="w-4 h-4 mr-2" />
                   Add task
                 </Button>
@@ -403,7 +404,7 @@ export default function TimesheetPage() {
 
               {/* Add Task Button */}
               <div className="p-4 border-t border-dark-700">
-                <Button variant="primary" size="sm">
+                <Button size="sm">
                   <Plus className="w-4 h-4 mr-2" />
                   Add task
                 </Button>

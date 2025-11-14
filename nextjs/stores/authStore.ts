@@ -14,6 +14,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   user: null,
   isAuthenticated: false,
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   login: async (username: string, password: string) => {
     // Simulate API call
     await new Promise((resolve) => setTimeout(resolve, 1000));
