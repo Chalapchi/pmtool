@@ -29,3 +29,9 @@ dist-ssr
 .env.development.local
 .env.test.local
 .env.production.local
+
+# Next.js build outputs
+/nextjs/.next/
+/nextjs/out/
+/nextjs/node_modules/
+/nextjs/.env*.local
