@@ -15,8 +15,8 @@ interface TaskBoardProps {
 const columns: { status: TaskStatus; label: string; color: string }[] = [
   { status: 'todo', label: 'Очікує виконання', color: 'border-dark-500' },
   { status: 'in_progress', label: 'В роботі', color: 'border-green-500' },
-  { status: 'complete', label: 'Постійна', color: 'border-blue-500' },
-  { status: 'done', label: 'Виконано', color: 'border-blue-400' },
+  { status: 'complete', label: 'Постійна', color: 'border-primary' },
+  { status: 'done', label: 'Виконано', color: 'border-primary' },
 ];
 
 export const TaskBoard = ({ projectId, onTaskClick }: TaskBoardProps) => {
