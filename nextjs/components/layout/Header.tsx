@@ -4,13 +4,13 @@ import { useEffect } from 'react';
 import { useTimerStore } from '@/stores/timerStore';
 import { useTaskStore } from '@/stores/taskStore';
 import {
-  Button,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui';
+} from '@/components/ui/select';
+import { Button } from '@/components/ui/button';
 import { Menu } from 'lucide-react';
 
 interface HeaderProps {
@@ -77,15 +77,11 @@ export const Header = ({ onToggleSidebar }: HeaderProps) => {
       {/* Center/Right - Time Tracker */}
       <div className="flex items-center gap-3 ml-auto">
         <div className="min-w-[200px]">
-          <Select
-            value={selectedTaskId || ''}
-            onValueChange={(value) => selectTask(value || null)}
-            disabled={isRunning}
-          >
-            <SelectTrigger className="text-sm">
+          <Select value={selectedTaskId || ''} onValueChange={(value) => selectTask(value || null)} disabled={isRunning}>
+            <SelectTrigger className="text-sm bg-dark-700 border-dark-600">
               <SelectValue placeholder="Select task..." />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-dark-800 border-dark-600">
               {tasks.map((task) => (
                 <SelectItem key={task.id} value={task.id}>
                   {task.title}
