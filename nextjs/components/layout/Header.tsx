@@ -86,7 +86,6 @@ export const Header = ({ onToggleSidebar }: HeaderProps) => {
               <SelectValue placeholder="Select task..." />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">Select task...</SelectItem>
               {tasks.map((task) => (
                 <SelectItem key={task.id} value={task.id}>
                   {task.title}

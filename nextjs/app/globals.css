@@ -12,12 +12,12 @@
     --popover-foreground: 229 229 229;
     --primary: 255 107 53; /* #FF6B35 */
     --primary-foreground: 255 255 255;
-    --secondary: 42 42 42; /* #2a2a2a */
+    --secondary: 88 88 88; /* #585858 - better contrast than primary */
     --secondary-foreground: 229 229 229;
-    --muted: 42 42 42;
+    --muted: 64 64 64;
     --muted-foreground: 153 153 153; /* #999999 */
-    --accent: 51 51 51; /* #333333 */
-    --accent-foreground: 229 229 229;
+    --accent: 255 107 53; /* #FF6B35 - accent same as primary for consistency */
+    --accent-foreground: 255 255 255;
     --destructive: 239 68 68;
     --destructive-foreground: 255 255 255;
     --border: 64 64 64; /* #404040 */
@@ -28,10 +28,10 @@
     /* Custom dark theme colors */
     --dark-900: 13 13 13;
     --dark-800: 26 26 26;
-    --dark-700: 42 42 42;
+    --dark-700: 37 37 37;
     --dark-600: 51 51 51;
     --dark-500: 64 64 64;
-    --dark-400: 153 153 153;
+    --dark-400: 115 115 115;
     --dark-300: 179 179 179;
     --dark-200: 204 204 204;
     --dark-100: 229 229 229;
